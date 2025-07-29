@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Linear Regression Derivation Side by Side Proof</title>
+  <style>
+    body {
+      font-family: 'Times New Roman', Times, serif;
+      font-size: 1.2em;
+      margin: 40px;
+    }
+    .container {
+      display: flex;
+      justify-content: space-between;
+      max-width: 900px;
+      margin: auto;
+      gap: 40px;
+    }
+    .equations, .proof {
+      flex: 1;
+      min-width: 300px;
+    }
+    .equations div, .proof div {
+      margin: 12px 0;
+    }
+    .proof-title {
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+  </style>
+  <!-- MathJax CDN for LaTeX rendering -->
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="equations">
+      <div>\( E = y^T y - 2y^T X\beta + \beta^T X^T X \beta \)</div>
+      <div>\( \frac{\partial E}{\partial \beta} = \frac{d}{d\beta} \left( y^T y - 2y^T X\beta + \beta^T X^T X \beta \right) \)</div>
+      <div>\( \Rightarrow 0 - 2y^T X + \frac{d}{d\beta} \left[ \beta^T X^T X \beta \right] = 0 \)</div>
+      <div>\( \Rightarrow -2 y^T X + 2 \beta^T X^T X \)</div>
+      <div>\( \frac{\partial E}{\partial \beta} = \beta^T X^T X = y^T X \)</div>
+      <div>\( \Rightarrow (\beta^T X^T X) (X^T X)^{-1} = y^T X (X^T X)^{-1} \)</div>
+      <div>\( \Rightarrow \beta^T I = y^T X (X^T X)^{-1} \)</div>
+      <div>\( \Rightarrow \beta^T = y^T X (X^T X)^{-1} \)</div>
+      <div>\( (\beta^T)^T = \left[ y^T X (X^T X)^{-1} \right]^T \)</div>
+      <div>\( \Rightarrow \beta = \left[ (X^T X)^{-1} X^T y \right]^T \)</div>
+      <div>\( \Rightarrow \beta = (X^T X)^{-1} X^T y \)</div>
+    </div>
+    <div class="proof">
+      <div class="proof-title">\(\displaystyle y^T \hat{y} = \hat{y}^T y \quad \text{(proof)}\)</div>
+      <div>Proof: Let \( y = A, \quad \hat{y} = B \)</div>
+      <div>\( \Rightarrow (A^T B)^T = (B^T A) \)</div>
+      <div>\( \Rightarrow (A^T B)^T = A^T B \)</div>
+      <div>\( \Rightarrow A^T B = C \)</div>
+      <div>\( \Rightarrow A^T B \text{ is symmetric} \)</div>
+      <div>\( \Rightarrow y^T \hat{y} = y^T X \)</div>
+    </div>
+  </div>
+</body>
+</html>

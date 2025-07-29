@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Linear Regression Derivation Step by Step</title>
+  <style>
+    body {
+      background-color: #f5f7fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #252a40;
+      line-height: 1.65;
+      margin: 0;
+      padding: 24px;
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+    }
+    .container {
+      background-color: white;
+      padding: 28px 32px;
+      border-radius: 8px;
+      box-shadow: 0 8px 20px rgba(40, 60, 140, 0.08);
+      margin: 16px auto;
+    }
+    h1 {
+      color: #1e3b72;
+      font-weight: 700;
+      font-size: 2.1rem;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    h2 {
+      color: #4d6bc6;
+      font-weight: 600;
+      font-size: 1.35rem;
+      margin-top: 32px;
+      margin-bottom: 8px;
+    }
+    .steps, .formulas, .summary {
+      margin-left: 20px;
+      margin-bottom: 16px;
+    }
+    .step {
+      margin-bottom: 12px;
+      position: relative;
+      padding-left: 16px;
+    }
+    .formula-block {
+      background-color: #f1f5ff;
+      border-left: 4px solid #6688e2;
+      border-radius: 0 6px 6px 0;
+      padding: 12px 18px;
+      margin: 16px 0;
+      font-family: 'Times New Roman', serif;
+      font-size: 1.15rem;
+    }
+    .explanation {
+      margin: 8px 0 4px;
+      color: #556075;
+      font-size: 0.98rem;
+      line-height: 1.5;
+    }
+    .highlight-box {
+      background-color: #eaf2ff;
+      border: 2px dashed #5d81d3;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 28px 0;
+      font-family: 'Times New Roman', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-align: center;
+      color: #243c76;
+    }
+    sup, sub {
+      font-size: 0.9em;
+      line-height: 0;
+      position: relative;
+      vertical-align: baseline;
+    }
+    sup {
+      top: -0.5em;
+    }
+    sub {
+      bottom: -0.25em;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Simple Linear Regression</h1>
+
+    <h2>1. Derivation for β₀</h2>
+    <div class="explanation">Start with partial derivative of the error sum with respect to β₀:</div>
+    <div class="formula-block">
+      ∂E/∂β₀ = ∂/∂β₀ Σ<sub>i=1</sub><sup>n</sup> (y<sub>i</sub> – β₁x<sub>i</sub> – β₀)<sup>2</sup> = 0<br>
+      = Σ<sub>i=1</sub><sup>n</sup> ∂/∂β₀ (y<sub>i</sub> – β₁x<sub>i</sub> – β₀)<sup>2</sup> = 0<br>
+      By the chain rule:<br>
+      = Σ<sub>i=1</sub><sup>n</sup> 2(y<sub>i</sub> – β₁x<sub>i</sub> – β₀) (∂/∂β₀)(y<sub>i</sub> – β₁x<sub>i</sub> – β₀)<br>
+      = Σ<sub>i=1</sub><sup>n</sup> 2(y<sub>i</sub> – β₁x<sub>i</sub> – β₀)(0 – 0 – 1) = 0<br>
+      = Σ<sub>i=1</sub><sup>n</sup> –2(y<sub>i</sub> – β₁x<sub>i</sub> – β₀) = 0<br>
+      <strong>Divide both sides by –2:</strong><br>
+      Σ<sub>i=1</sub><sup>n</sup> (y<sub>i</sub> – β₁x<sub>i</sub> – β₀) = 0<br>
+      <strong>Rewriting:</strong><br>
+      Σ y<sub>i</sub> – β₁Σ x<sub>i</sub> – nβ₀ = 0<br>
+      <strong>Divide by n:</strong><br>
+      (1/n)Σ y<sub>i</sub> – β₁(1/n)Σ x<sub>i</sub> – β₀ = 0<br>
+      ȳ – β₁x̄ – β₀ = 0<br>
+      <strong>Solve for β₀:</strong><br>
+      β₀ = ȳ – β₁x̄
+    </div>
+
+    <h2>2. Derivation for β₁</h2>
+    <div class="explanation">Start with error sum, substitute β₀ = ȳ – β₁x̄, and differentiate with respect to β₁:</div>
+    <div class="formula-block">
+      E = Σ<sub>i=1</sub><sup>n</sup> [y<sub>i</sub> – β₁x<sub>i</sub> – (ȳ – β₁x̄)]<sup>2</sup><br>
+      = Σ<sub>i=1</sub><sup>n</sup> [y<sub>i</sub> – β₁x<sub>i</sub> – ȳ + β₁x̄]<sup>2</sup><br>
+      <strong>Take derivative with respect to β₁:</strong><br>
+      ∂E/∂β₁ = ∂/∂β₁ Σ<sub>i=1</sub><sup>n</sup> [y<sub>i</sub> – β₁x<sub>i</sub> – ȳ + β₁x̄]<sup>2</sup> = 0<br>
+      = Σ<sub>i=1</sub><sup>n</sup> 2[y<sub>i</sub> – β₁x<sub>i</sub> – ȳ + β₁x̄] · ∂/∂β₁[y<sub>i</sub> – β₁x<sub>i</sub> – ȳ + β₁x̄]<br>
+      = Σ<sub>i=1</sub><sup>n</sup> 2[y<sub>i</sub> – β₁x<sub>i</sub> – ȳ + β₁x̄] · (–x<sub>i</sub> + x̄)<br>
+      = Σ<sub>i=1</sub><sup>n</sup> –2[y<sub>i</sub> – β₁x<sub>i</sub> – ȳ + β₁x̄](x<sub>i</sub> – x̄) = 0<br>
+      <strong>Divide both sides by –2:</strong><br>
+      Σ<sub>i=1</sub><sup>n</sup> (y<sub>i</sub> – β₁x<sub>i</sub> – ȳ + β₁x̄)(x<sub>i</sub> – x̄) = 0<br>
+      <strong>Rewriting:</strong><br>
+      Σ<sub>i=1</sub><sup>n</sup> [(y<sub>i</sub> – ȳ) – β₁(x<sub>i</sub> – x̄)](x<sub>i</sub> – x̄) = 0<br>
+      Σ<sub>i=1</sub><sup>n</sup> (y<sub>i</sub> – ȳ)(x<sub>i</sub> – x̄) – β₁Σ(x<sub>i</sub> – x̄)<sup>2</sup> = 0<br>
+      <strong>Solve for β₁:</strong><br>
+      β₁ = Σ(x<sub>i</sub> – x̄)(y<sub>i</sub> – ȳ) / Σ(x<sub>i</sub> – x̄)<sup>2</sup>
+    </div>
+
+    <h2>3. Final Closed-Form Formulas</h2>
+    <div class="highlight-box">
+      <strong>β₀ = ȳ – β₁x̄</strong><br>
+      <strong>β₁ = Σ(x<sub>i</sub> – x̄)(y<sub>i</sub> – ȳ) / Σ(x<sub>i</sub> – x̄)<sup>2</sup></strong>
+    </div>
+
+    <h2>4. Summary of Steps</h2>
+    <div class="steps">
+      <div class="step">1. Calculate sample means: x̄, ȳ</div>
+      <div class="step">2. Compute β₁ using the formula above</div>
+      <div class="step">3. Compute β₀ = ȳ – β₁x̄</div>
+      <div class="step">4. For any new x, predict ŷ = β₀ + β₁x</div>
+    </div>
+  </div>
+</body>
+</html>

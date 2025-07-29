@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multiple Linear Regression Algebra</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+    }
+    h1 { font-size: 1.8em; border-bottom: 2px solid #3498db; padding-bottom: 0.3em; }
+    h2 { font-size: 1.5em; color: #2980b9; }
+    h3 { font-size: 1.3em; color: #16a085; }
+    .highlight {
+      background-color: #f8f9fa;
+      border-left: 4px solid #3498db;
+      padding: 1em;
+      margin: 1em 0;
+    }
+    .matrix {
+      font-family: 'Courier New', Courier, monospace;
+      background-color: #f5f5f5;
+      padding: 10px;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
+    .eq {
+      margin: 1em 0;
+      text-align: center;
+    }
+    .note {
+      font-style: italic;
+      color: #7f8c8d;
+    }
+    .box {
+      border: 2px solid #e74c3c;
+      padding: 10px;
+      margin: 1em 0;
+      background-color: #fef9e7;
+    }
+    .right-note {
+      float: right;
+      width: 30%;
+      font-size: 0.9em;
+      color: #7f8c8d;
+      border-left: 1px solid #bdc3c7;
+      padding-left: 15px;
+    }
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+  <h1>Multiple Linear Regression — Step-by-Step Matrix Algebra</h1>
+
+  <h3>1. Basic Equations</h3>
+  <div class="eq">
+    \[ y = m x_1 + n x_2 + b \]
+    \[ Y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 \]
+    If \(\beta_1 > \beta_2\), it means \(x_1\) is more important than \(x_2\).<br>
+    \( b = \beta_0, m = \beta_1, n = \beta_2 \)
+  </div>
+  <div class="eq">
+    \[ Y = \beta_0 + \sum_{i=1}^n \beta_i x_i \]
+  </div>
+
+  <h3>2. Mathematical Formulation</h3>
+  <p>For a data of 100 rows and 3 input columns:</p>
+  <div class="eq">
+    \[
+    \hat{Y} =
+    \begin{bmatrix}
+    \hat{y}_1 \\ \hat{y}_2 \\ \vdots \\ \hat{y}_{100}
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+    \beta_0 + \beta_1 x_{11} + \beta_2 x_{12} + \beta_3 x_{13} \\
+    \beta_0 + \beta_1 x_{21} + \beta_2 x_{22} + \beta_3 x_{23} \\
+    \vdots \\
+    \beta_0 + \beta_1 x_{100,1} + \beta_2 x_{100,2} + \beta_3 x_{100,3}
+    \end{bmatrix}
+    \]
+  </div>
+  <p><span class="note">Example note:</span> \(x_{11}\) = 1st student, 1st column value, and so on.</p>
+
+  <h4>Generalization for \(n\) rows and \(m\) input columns:</h4>
+  <div class="eq">
+    \[
+    \hat{Y} =
+    \begin{bmatrix}
+    \hat{y}_1 \\ \hat{y}_2 \\ \vdots \\ \hat{y}_n
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+    \beta_0 + \beta_1 x_{11} + \beta_2 x_{12} + \cdots + \beta_m x_{1m} \\
+    \beta_0 + \beta_1 x_{21} + \beta_2 x_{22} + \cdots + \beta_m x_{2m} \\
+    \vdots \\
+    \beta_0 + \beta_1 x_{n1} + \beta_2 x_{n2} + \cdots + \beta_m x_{nm}
+    \end{bmatrix}
+    \]
+  </div>
+
+  <h4>Matrix Multiplication Structure:</h4>
+  <div class="eq">
+    \[
+    \hat{Y} = X \beta
+    \]
+  </div>
+  <p>With:</p>
+  <div class="matrix eq">
+    \[
+    X =
+    \begin{bmatrix}
+    1 & x_{11} & x_{12} & \dots & x_{1m} \\
+    1 & x_{21} & x_{22} & \dots & x_{2m} \\
+    \vdots & \vdots & \vdots & \ddots & \vdots \\
+    1 & x_{n1} & x_{n2} & \dots & x_{nm}
+    \end{bmatrix}
+    \]
+    \[
+    \beta =
+    \begin{bmatrix}
+    \beta_0 \\ \beta_1 \\ \beta_2 \\ \vdots \\ \beta_m
+    \end{bmatrix}
+    \]
+  </div>
+  <p class="note"><strong>Notational Note:</strong> \(X\) is the input data matrix (every row is a data point, columns are features, first column is all ones for intercept). \(\hat{Y} = X \beta\) is the vector of predicted values.</p>
+  <h3>3. Matrix of all actual output values</h3>
+  <div class="eq">
+    \[
+    Y =
+    \begin{bmatrix}
+    y_1 \\ y_2 \\ \vdots \\ y_n
+    \end{bmatrix}
+    \]
+  </div>
+
+  <h3>4. Error Vector</h3>
+  <div class="eq">
+    \[
+    e = Y - \hat{Y} =
+    \begin{bmatrix}
+    y_1 \\ y_2 \\ \vdots \\ y_n
+    \end{bmatrix}
+    -
+    \begin{bmatrix}
+    \hat{y}_1 \\ \hat{y}_2 \\ \vdots \\ \hat{y}_n
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+    y_1 - \hat{y}_1 \\ y_2 - \hat{y}_2 \\ \vdots \\ y_n - \hat{y}_n
+    \end{bmatrix}
+    \]
+  </div>
+
+  <h3>5. Error Function (\(E\))</h3>
+  <p>\(E\): Error function (Sum of Squared Errors)</p>
+  <div class="eq">
+    \[
+    e^T e = \sum_{i=1}^n (y_i - \hat{y}_i)^2
+    \]
+    \[
+    E = e^T e = (Y - \hat{Y})^T (Y - \hat{Y}) = (Y - X \beta)^T (Y - X \beta)
+    \]
+    (using \(\hat{Y} = X \beta\))
+  </div>
+
+  <h3>6. Expanding \(E\)</h3>
+  <div class="eq">
+    \[
+    \begin{align*}
+    E &= (Y - X \beta)^T (Y - X \beta) \\
+      &= [Y^T - \beta^T X^T](Y - X \beta) \\
+      &= Y^T Y - Y^T X \beta - \beta^T X^T Y + \beta^T X^T X \beta
+    \end{align*}
+    \]
+  </div>
+  <p class="note"><strong>Note:</strong> \(Y^T X \beta\) and \(\beta^T X^T Y\) are the same (scalar), so:</p>
+  <div class="eq">
+    \[
+    E = Y^T Y - 2 Y^T X \beta + \beta^T X^T X \beta
+    \]
+  </div>
+
+  <h3>7. Setting Derivative to Zero (Optimization)</h3>
+  <div class="eq">
+    \[
+    \frac{d E}{d \beta} = \frac{d}{d \beta} [Y^T Y - 2 Y^T X \beta + \beta^T X^T X \beta] = 0
+    \]
+    \[
+    \frac{d E}{d \beta} = -2 Y^T X + 2 \beta^T X^T X = 0
+    \]
+  </div>
+
+  <h3>8. Solving the Normal Equation</h3>
+  <div class="eq">
+    \[
+    -2 Y^T X + 2 \beta^T X^T X = 0 \implies \beta^T X^T X = Y^T X \implies \beta^T = Y^T X (X^T X)^{-1}
+    \]
+    \[
+    \beta = (X^T X)^{-1} X^T Y
+    \]
+  </div>
+
+  <div class="box eq">
+    <h3>9. Boxed Final Solution</h3>
+    \[
+    \boxed{
+    \beta = (X^T X)^{-1} X^T Y
+    }
+    \]
+    <p>Where:<br>
+      \(X\) → input features (x-train)<br>
+      \(Y\) → target/output values (y-train)<br>
+      \(\beta\) → coefficients (including intercept \(\beta_0, \beta_1, \ldots, \beta_m\))</p>
+  </div>
+</body>
+</html>
